@@ -1,6 +1,10 @@
+"""
+This module contains the FastAPI application with endpoints for 
+status, greeting, and summing numbers.
+"""
+
 from fastapi import FastAPI
 from pydantic import BaseModel
-
 
 app = FastAPI(
     title="Simple FastAPI Server",
@@ -19,6 +23,7 @@ def say_hi(name: str) -> dict:
     return {"message": f"Hi, {name}!"}
 
 class SumRequest(BaseModel):
+    """Request model for summing two numbers."""
     a: int
     b: int
 
