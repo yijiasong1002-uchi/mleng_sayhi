@@ -24,7 +24,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pylint black mypy pytest
+        pip install pylint black mypy pytest fastapi
 
     - name: Run pylint
       run: |
