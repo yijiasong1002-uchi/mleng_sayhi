@@ -28,7 +28,7 @@ jobs:
 
     - name: Run pylint
       run: |
-        pylint **/*.py
+        pylint app/**/*.py tests/**/*.py
 
     - name: Run black
       run: |
@@ -36,8 +36,8 @@ jobs:
 
     - name: Run mypy
       run: |
-        mypy .
+        mypy app tests
 
     - name: Run pytest
       run: |
-        pytest
+        pytest tests
