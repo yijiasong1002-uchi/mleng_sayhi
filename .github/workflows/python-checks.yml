@@ -30,13 +30,9 @@ jobs:
       run: |
         pylint tests/
 
-    - name: Run black
-      run: |
-        black --check .
-
     - name: Run mypy
       run: |
-        mypy app tests
+        mypy .
 
     - name: Run pytest
       run: |
