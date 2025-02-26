@@ -1,6 +1,6 @@
 """
 This module contains the FastAPI application with endpoints for 
-status, greeting, and summing numbers.
+status, greeting, and summing numbers
 """
 
 from fastapi import FastAPI
