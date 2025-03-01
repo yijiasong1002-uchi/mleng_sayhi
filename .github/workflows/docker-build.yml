@@ -1,5 +1,5 @@
 name: Build and Push Docker Image
-
+# "best practice", according to https://docs.docker.com/guides/gha/
 on:
   push:
     branches:
@@ -31,7 +31,16 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            TIMESTAMP=$(date +%Y%m%d%H%M%S)
+            ${{ vars.DOCKER_USERNAME }}/mleng_sayhi:$TIMESTAMP
+            ${{ vars.DOCKER_USERNAME }}/mleng_sayhi:latest
           annotations: ${{ steps.meta.outputs.annotations }}
           provenance: true
           sbom: true
+
+      # - name: Build Docker image
+      # run: |
+      #   TIMESTAMP=$(date +%Y%m%d%H%M%S)  # Timestamp versioning
+      #   docker build -t ${{ vars.DOCKER_USERNAME }}/sayhi_api:$TIMESTAMP .
+      #   docker build -t ${{ vars.DOCKER_USERNAME }}/sayhi_api:latest .
