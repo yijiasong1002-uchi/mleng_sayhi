@@ -5,7 +5,7 @@ from datetime import datetime
 USER_NAME = "shahbazc"
 VERSION = "1.0.0"
 
-def say_hi(msg = "Hi!", file_directory = "/app/data/"):
+def say_hi(msg:str = "Hi!", file_directory:str = "/app/data/") -> None:
     # Generate timestamp
     timestamp = datetime.now().strftime("%Y%m%d%H%M")
 
@@ -18,6 +18,9 @@ def say_hi(msg = "Hi!", file_directory = "/app/data/"):
         file.write(msg)
 
     print(f"File '{file_path}' created successfully.")
+
+def add_numbers(a:int, b:int) -> int:
+    return a + b
 
 if __name__ == "__main__":
     say_hi()
