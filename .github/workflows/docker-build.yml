@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Get Git commit timestamps
+        run: echo "TIMESTAMP=$(date +%Y%m%d%H%M%S)" >> $GITHUB_ENV
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -32,8 +35,7 @@ jobs:
         with:
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
-            TIMESTAMP=$(date +%Y%m%d%H%M%S)
-            ${{ vars.DOCKER_USERNAME }}/mleng_sayhi:$TIMESTAMP
+            ${{ vars.DOCKER_USERNAME }}/mleng_sayhi:${{ env.TIMESTAMP }}
             ${{ vars.DOCKER_USERNAME }}/mleng_sayhi:latest
           annotations: ${{ steps.meta.outputs.annotations }}
           provenance: true
