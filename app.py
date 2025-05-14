@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-# Please customize the following variables
+# Please customize the following variables 
 USER_NAME = "shahbazc"
 VERSION = "1.0.0"
 
