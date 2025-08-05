@@ -1,11 +1,9 @@
 name: CI/CD Pipeline
-
 on:
   push:
     branches: [ main, prod ]
   pull_request:
     branches: [ main ]
-
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -35,7 +33,6 @@ jobs:
     - name: Run Pylint
       run: |
         pylint *.py --disable=all --enable=E || true
-
   build-and-deploy:
     if: github.ref == 'refs/heads/prod'
     needs: test
@@ -58,7 +55,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/mleng-sayhi:latest
+        tags: ${{ secrets.DOCKER_USERNAME }}/mleng-sayhi:latest
     
     - name: Deploy to server
       uses: appleboy/ssh-action@v1.0.0
@@ -72,12 +69,13 @@ jobs:
           docker rm mleng-sayhi-container || true
           
           # Pull latest image
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/mleng-sayhi:latest
+          docker pull ${{ secrets.DOCKER_USERNAME }}/mleng-sayhi:latest
           
           # Create output directory if it doesn't exist
-          mkdir -p /opt/assignment_outputs || true
+          sudo mkdir -p /opt/assignment_outputs || true
+          sudo chmod 755 /opt/assignment_outputs
           
           # Run the container with volume mapping
           docker run --name mleng-sayhi-container \
             -v /opt/assignment_outputs:/app/data \
-            ${{ secrets.DOCKERHUB_USERNAME }}/mleng-sayhi:latest
+            ${{ secrets.DOCKER_USERNAME }}/mleng-sayhi:latest
