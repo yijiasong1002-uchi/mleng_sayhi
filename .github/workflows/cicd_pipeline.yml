@@ -75,8 +75,7 @@ jobs:
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/mleng-sayhi:latest
           
           # Create output directory if it doesn't exist
-          sudo mkdir -p /opt/assignment_outputs
-          sudo chmod 777 /opt/assignment_outputs
+          mkdir -p /opt/assignment_outputs || true
           
           # Run the container with volume mapping
           docker run --name mleng-sayhi-container \
