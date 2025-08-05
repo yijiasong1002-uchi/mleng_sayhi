@@ -2,9 +2,13 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
+# Create the data directory
+RUN mkdir -p /app/data
+
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD ["fastapi", "run", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Run app.py instead of the FastAPI server
+CMD ["python", "app.py"]
