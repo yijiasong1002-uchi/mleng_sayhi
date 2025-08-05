@@ -64,18 +64,14 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          # Stop and remove existing container if it exists
           docker stop mleng-sayhi-container || true
-          docker rm mleng-sayhi-container || true
-          
-          # Pull latest image
-          docker pull ${{ secrets.DOCKER_USERNAME }}/mleng-sayhi:latest
-          
-          # Create output directory if it doesn't exist
+          docker rm   mleng-sayhi-container || true
+    
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/mleng-sayhi:latest
+    
           sudo mkdir -p /opt/assignment_outputs || true
           sudo chmod 755 /opt/assignment_outputs
-          
-          # Run the container with volume mapping
+    
           docker run --name mleng-sayhi-container \
             -v /opt/assignment_outputs:/app/data \
-            ${{ secrets.DOCKER_USERNAME }}/mleng-sayhi:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/mleng-sayhi:latest
